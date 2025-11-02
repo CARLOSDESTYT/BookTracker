@@ -23,6 +23,8 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('signup/', views.signup, name='signup'),
     path('books/', views.books, name='books'),
+    path('books/create/', views.create_book, name='create_book'),
+    path('books/<int:book_id>/', views.book_deail, name='book_detail'),
     path('logout/', views.signout, name='signout'),
     path('signin/', views.signin, name='signin'),
 ]

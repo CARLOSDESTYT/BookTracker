@@ -3,4 +3,16 @@
 
 <h1>Books</h1>
 
+<ul>
+    {% for book in books %}
+    <li>
+        <a href="{% url 'book_detail' book.id %}">
+            <strong>
+                {{book.title}}
+            </strong>
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+
 {% endblock %}
