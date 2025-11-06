@@ -7,9 +7,20 @@
     {% for book in books %}
     <li>
         <a href="{% url 'book_detail' book.id %}">
-            <strong>
-                {{book.title}}
-            </strong>
+            <strong> {{book.title}} </strong>
+            <p>{{book.autor}}</p>
+            <p>{{book.goal}}</p>
+            {% if book.date_completed %}
+                <p>{{ book.date_completed }}</p>
+            {% endif %}
+            <p>{{book.pages_read}} de {{book.pages_total}}</p>
+            <p>{{book.progress}}%</p>
+            {% for dia, paginas in book.pages_for_day %}
+                <tr>
+                    <td>{{ dia }}</td>
+                    <td>{{ paginas }}<br></td>
+                </tr>
+            {% endfor %}
         </a>
     </li>
     {% endfor %}

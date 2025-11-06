@@ -21,6 +21,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=50)),
                 ('autor', models.CharField(max_length=50)),
+                ('goal', models.DateField(blank=True, null=True)),
                 ('pages_read', models.IntegerField(default=0, validators=[django.core.validators.MinValueValidator(0)])),
                 ('pages_total', models.IntegerField(validators=[django.core.validators.MinValueValidator(1)])),
                 ('created', models.DateTimeField(auto_now_add=True)),
