@@ -9,8 +9,8 @@ class Book(models.Model):
     goal = models.DateField(null=True, blank=True)
     pages_read = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     pages_total = models.IntegerField(validators=[MinValueValidator(1)])
-    created = models.DateTimeField(auto_now_add=True)
-    date_completed = models.DateTimeField(null=True, blank=True, default=None)
+    created = models.DateField(auto_now_add=True)
+    date_completed = models.DateField(null=True, blank=True, default=None)
     user =  models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
