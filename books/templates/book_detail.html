@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>{{book.title}}</h1>
+{{error}}
+<form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    {% for dia, paginas in book.pages_for_day %}
+        <tr>
+            <td>{{ dia }}</td>
+            <td>{{ paginas }}<br></td>
+        </tr>
+    {% endfor %}
+    <button>
+        Update
+    </button>
+</form>
+
+<form action="{% url 'complete_book' book.id %}" method="POST">
+    {% csrf_token %}
+    <button>
+        Complete
+    </button>
+</form>
+
+<form action="{% url 'delete_book' book.id %}" method="POST">
+    {% csrf_token %}
+    <button>
+        Delete
+    </button>
+</form>
+
+{% endblock %}
