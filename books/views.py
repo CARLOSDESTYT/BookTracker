@@ -6,6 +6,8 @@ from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from django.utils import timezone
 from .forms import BookForm
+from .forms import SignUpForm
+from .forms import SignInForm
 from .models import Book
 
 
@@ -16,7 +18,7 @@ def home(request):
 
 def signup(request):
     if request.method == 'GET':
-        return render(request, 'signup.html', {'form': UserCreationForm()})
+        return render(request, 'signup.html', {'form': SignUpForm()})
     else:
         if request.POST['password1'] == request.POST['password2']:
             # Registrar el usuario
@@ -26,8 +28,8 @@ def signup(request):
                 login(request, user)
                 return redirect('books')
             except IntegrityError:
-                return render(request, 'signup.html', {'form': UserCreationForm(), 'error': 'El usuario ya existe'})
-        return render(request, 'signup.html', {'form': UserCreationForm(), 'error': 'Las contraseñas no coinciden'})
+                return render(request, 'signup.html', {'form': SignUpForm(), 'error': 'El usuario ya existe'})
+        return render(request, 'signup.html', {'form': SignUpForm(), 'error': 'Las contraseñas no coinciden'})
 
 @login_required
 def books(request):
@@ -95,11 +97,11 @@ def signout(request):
 
 def signin(request):
     if request.method == 'GET':
-        return render(request, 'signin.html', {'form': AuthenticationForm()})
+        return render(request, 'signin.html', {'form': SignInForm()})
     else:
         user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
         if user is None:
-            return render(request, 'signin.html', {'form': AuthenticationForm(), 'error': 'El usuario o la contraseña no son incorrectos'})
+            return render(request, 'signin.html', {'form': SignInForm(), 'error': 'El usuario o la contraseña no son incorrectos'})
         else:
             login(request, user)
             return redirect('books')

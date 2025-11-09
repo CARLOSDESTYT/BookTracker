@@ -4,3 +4,10 @@
 .pagebg{
     background-color: #F2E9DCF0;
 }
+.formOutline{
+    outline: 6px solid #DCBD9E;
+}
+.formButtonColor{
+    background-color: #DCBD9E;
+    color: #FFFFFF;
+}
