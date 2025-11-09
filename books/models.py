@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
+from django.utils import timezone
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 class Book(models.Model):
@@ -26,10 +29,33 @@ class Book(models.Model):
             return 0
         tabla = []
         for dias in range(1, 11):
-            paginas_por_dia = round(self.pages_total / dias)
+            paginas_por_dia = round((self.pages_total-self.pages_read) / dias)
             tabla.append((dias, paginas_por_dia))
-
         return tabla
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    date_most_pages_read = models.DateField(null=True, blank=True)
+    most_pages_read = models.PositiveIntegerField(default=0)
+    pages_this_month = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f"Perfil de {self.user.username}"
+    
+    def average_pages_for_day(self):
+        if self.pages_this_month == 0:
+            return 0
+        dias = timezone.now().day
+        paginas_por_dia = round(self.pages_this_month / dias)
+        return paginas_por_dia
+    
+@receiver(post_save, sender=User)
+def create_or_update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+    else:
+        instance.profile.save()
+    
 
 def clean(self):
     from django.core.exceptions import ValidationError

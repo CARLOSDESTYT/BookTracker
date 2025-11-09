@@ -6,7 +6,8 @@ from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from django.utils import timezone
 from .forms import BookForm
-from .models import Book
+from .models import Book, Profile
+from datetime import datetime
 
 
 # Create your views here.
@@ -35,26 +36,56 @@ def books(request):
     return render(request, 'books.html', {'books': books})
 
 @login_required
+def dashboard(request):
+    books_created = Book.objects.filter(user=request.user, created__month=datetime.now().month)
+    books_completed = Book.objects.filter(user=request.user, date_completed__month=datetime.now().month)
+    profile = request.user.profile
+    return render(request, 'dashboard.html', {'books_created': books_created, 'books_completed': books_completed, 'profile': profile})
+
+@login_required
 def create_book(request):
+    profile = request.user.profile
     if request.method == 'GET':
         return render(request, 'create_book.html', {'form': BookForm()})
     else:
         form = BookForm(request.POST)
         pages_read = int(request.POST.get('pages_read', 0))
         pages_total = int(request.POST.get('pages_total', 0))
+        book_id = int(request.POST.get('book_id', 0))
         if pages_read > pages_total:
             return render(request, 'book_detail.html',{'form': form, 'error': 'No puedes leer más páginas de las que tiene el libro'})
         try:
+            if pages_read == pages_total:
+                complete_book(request, book_id)
             new_book = form.save(commit=False)
             new_book.user = request.user
             new_book.save()
+            today = timezone.now().date()
+            # Actualizar récord diario/máximo
+            if profile.date_most_pages_read == today:
+                    profile.most_pages_read += pages_read
+            else:
+                if pages_read > profile.most_pages_read:
+                    profile.most_pages_read = pages_read
+                    profile.date_most_pages_read = today
+            if profile.most_pages_read < 0:
+                profile.most_pages_read = 0
+            profile.pages_this_month += pages_read
+            if profile.pages_this_month < 0:
+                profile.pages_this_month = 0
+            profile.save()
             return redirect('books')
         except ValueError:
                 return render(request, 'signup.html', {'form': BookForm(), 'error': 'Porfavor ponga datos validos'})
 
+from django.utils import timezone
+from datetime import datetime
+
 @login_required
 def book_detail(request, book_id):
     book = get_object_or_404(Book, pk=book_id, user=request.user)
+    profile = request.user.profile
+    last_pages_read = book.pages_read  # <- correcto: tomamos el valor guardado
     if request.method == 'GET':
         form = BookForm(instance=book)
         return render(request, 'book_detail.html', {'book': book, 'form': form})
@@ -63,11 +94,34 @@ def book_detail(request, book_id):
         pages_read = int(request.POST.get('pages_read', 0))
         pages_total = int(request.POST.get('pages_total', 0))
         if pages_read > pages_total:
-            return render(request, 'book_detail.html',{'book': book, 'form': form, 'error': 'No puedes leer más páginas de las que tiene el libro'})
+            return render(request, 'book_detail.html', {'book': book, 'form': form, 'error': 'No puedes leer más páginas de las que tiene el libro'})
         try:
-            form.save()
+            form.save()  # guardamos el libro actualizado primero
             if pages_read == pages_total:
                 complete_book(request, book_id)
+            elif pages_read < pages_total:
+                book.date_completed = None
+                book.save()
+            # Calcular cuántas páginas nuevas se leyeron
+            pages = pages_read - last_pages_read
+            today = timezone.now().date()
+            current_month = today.month
+            # Actualizar récord diario/máximo
+            if profile.date_most_pages_read == today:
+                    profile.most_pages_read += pages
+            else:
+                if pages > profile.most_pages_read:
+                    profile.most_pages_read = pages
+                    profile.date_most_pages_read = today
+            if profile.most_pages_read < 0:
+                profile.most_pages_read = 0
+            # Reiniciar contador mensual si cambió el mes
+            if profile.date_most_pages_read.month != current_month:
+                profile.pages_this_month = 0
+            profile.pages_this_month += pages
+            if profile.pages_this_month < 0:
+                profile.pages_this_month = 0
+            profile.save()
             return redirect('books')
         except ValueError:
             return render(request, 'book_detail.html', {'book': book, 'form': form, 'error': 'Error actualizando libro'})

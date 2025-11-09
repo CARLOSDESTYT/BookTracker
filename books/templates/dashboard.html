@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Books</h1>
+
+<ul>
+    {% for book in books_created %}
+    <li>
+        <a href="{% url 'book_detail' book.id %}">
+            <strong> {{book.title}} </strong>
+            <p>{{book.autor}}</p>
+            {% if book.goal %}
+                <p>Meta: {{book.goal|date:'j/M/Y'}}</p>
+            {% endif %}
+            {% if book.date_completed %}
+                <p>{{ book.date_completed|date:'j/M/Y' }}</p>
+            {% endif %}
+            <p>{{book.pages_read}} de {{book.pages_total}}</p>
+            <p>{{book.progress}}%</p>
+        </a>
+    </li>
+    {% endfor %}
+    {% for book in books_completed %}
+    <li>
+        <a href="{% url 'book_detail' book.id %}">
+            <strong> {{book.title}} </strong>
+            <p>{{book.autor}}</p>
+            {% if book.goal %}
+                <p>Meta: {{book.goal|date:'j/M/Y'}}</p>
+            {% endif %}
+            {% if book.date_completed %}
+                <p>{{ book.date_completed|date:'j/M/Y' }}</p>
+            {% endif %}
+            <p>{{book.pages_read}} de {{book.pages_total}}</p>
+            <p>{{book.progress}}%</p>
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+<p>{{ profile.date_most_pages_read|date:'j M'  }}</p>
+<p>{{ profile.most_pages_read }} páginas</p>
+<p>Páginas leídas este mes {{ profile.pages_this_month }}</p>
+<p>Promedio de páginas por día {{ profile.average_pages_for_day }}</p>
+
+
+{% endblock %}

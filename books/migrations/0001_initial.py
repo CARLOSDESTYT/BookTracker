@@ -25,8 +25,18 @@ class Migration(migrations.Migration):
                 ('pages_read', models.IntegerField(default=0, validators=[django.core.validators.MinValueValidator(0)])),
                 ('pages_total', models.IntegerField(validators=[django.core.validators.MinValueValidator(1)])),
                 ('created', models.DateField(auto_now_add=True)),
-                ('date_completed', models.DateField(null=True)),
+                ('date_completed', models.DateField(null=True, blank=True, default=None)),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Profile',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('date_most_pages_read', models.DateField(blank=True, null=True)),
+                ('most_pages_read', models.PositiveIntegerField(default=0)),
+                ('pages_this_month', models.PositiveIntegerField(default=0)),
+                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]
