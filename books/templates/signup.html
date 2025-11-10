@@ -1,16 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
-
-<h1>Signup</h1>
+{%load static%}
 
 {{error}}
+<br/>
+<div class = "d-flex flex-column justify-content-center flex-wrap rounded">
+    <div class="d-flex p-2 justify-content-center">
+        <h1>Sign Up</h1>
+    </div>
+    <div class = "p-2 rounded formOutline" style=" background-color:#FFFFFF">
+        <form action="/signup/" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            {% comment %} <button type="submit" value=>
+                Signup
+            </button> {% endcomment %}
+            <button type="submit" class="formButtonColor btn btn-secondary btn-block ">Submit</button>
+        </form>
+        <div class="d-flex p-2 justify-content-center">
+                    <a href="/signin">Already have an account? Sign In</h1>
+        </div>
 
-<form action="/signup/" method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button>
-        Signup
-    </button>
-</form>
 
+</div>
 {% endblock %}

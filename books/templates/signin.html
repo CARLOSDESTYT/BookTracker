@@ -1,14 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Signin</h1>
 {{error}}
-<form action="/signin/" method ="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button>
-        Signin
-    </button>
-</form>
-
+<div class = "d-flex flex-column justify-content-center flex-wrap rounded">
+    <div class="d-flex p-2 justify-content-center">
+        <h1>Sign in</h1>
+    </div>
+    <div class = "p-2 rounded formOutline" style=" background-color:#FFFFFF">
+        <form action="/signin/" method ="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" class="formButtonColor btn btn-secondary btn-block ">Submit</button>
+        </form>
+        <div class="d-flex p-2 justify-content-center">
+                    <a href="/signup">Not registered? Sign Up</h1>
+        </div>
+    </div>
 {% endblock %}

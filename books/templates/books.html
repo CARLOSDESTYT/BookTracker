@@ -1,25 +1,46 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Books</h1>
 
-<ul>
-    {% for book in books %}
-    <li>
-        <a href="{% url 'book_detail' book.id %}">
-            <strong> {{book.title}} </strong>
-            <p>{{book.autor}}</p>
-            {% if book.goal %}
-                <p>Meta: {{book.goal|date:'j/M/Y'}}</p>
-            {% endif %}
-            {% if book.date_completed %}
-                <p>{{ book.date_completed|date:'j/M/Y' }}</p>
-            {% endif %}
-            <p>{{book.pages_read}} de {{book.pages_total}}</p>
-            <p>{{book.progress}}%</p>
-        </a>
-    </li>
-    {% endfor %}
-</ul>
+<div class="d-flex p-2 justify-content-center flex-wrap flex-column">
+    <div class="d-flex p-2 justify-content-center">
+        <h1 class="p-2">Library</h1>
+    </div>
+    <div class="d-flex album py-5 pagebg">
+        <div class="container">
+            <!--<ul>-->
 
+            <div class="row">
+                    
+                    {% for book in books %}
+                <div class="col-md-4">  
+                    <div class="card mb-4 box-shadow" style="width: 16rem">
+                        <div class="card-body">
+                            {% comment %} <li> {% endcomment %}
+                                <a class="card-text" href="{% url 'book_detail' book.id %}">
+                                    <strong class="text-dark"> {{book.title}} </strong>
+                                    <p class="card-text text-dark">{{book.autor}}</p>
+                                    {% if book.goal %}
+                                        <p class="card-text text-dark">Goal: {{book.goal|date:'j/M/Y'}}</p>
+                                    {% endif %}
+                                    {% if book.date_completed %}
+                                        <p class="card-text text-dark">{{ book.date_completed|date:'j/M/Y' }}</p>
+                                    {% endif %}
+                                    <p class="card-text text-dark">{{book.pages_read}} de {{book.pages_total}}</p>
+                                    <div class= "progress" >
+                                        <div style="width: {{book.progress}}%" class="progress-bar" role="progressbar" aria-valuenow="{{book.progress}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <p class="card-text text-dark">{{book.progress}}%</p>
+                                    </div>      
+                                </a>
+                            {% comment %} </li> {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+                    {% endfor %}
+                
+            </div>
+            <!--</ul>-->
+        </div>
+    </div>
+</div>
 {% endblock %}
