@@ -1,8 +1,46 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="d-flex p-2 justify-content-center flex-wrap">
-    <h1>Home</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam nam non minima cumque accusantium harum repellat quas, hic, quis, tenetur molestiae ipsa deleniti amet maiores? Iste a deserunt architecto quos voluptas officiis porro accusantium quae ut! Fuga, veniam quod. Magnam distinctio harum quidem inventore facilis neque dolorum quam voluptatibus ipsum. Blanditiis autem perferendis, neque ullam dolores facere eos animi natus? Illo cum iusto necessitatibus deleniti, voluptates error odio nulla asperiores quasi eligendi dicta quas explicabo quam amet natus fugiat. Accusantium ipsam aliquam illum velit voluptates quidem dolorum neque perspiciatis, nihil magnam minima ex sequi, quia facere eius delectus sapiente modi!</p>
+<div class="container py-4">
+
+    <!-- Título principal -->
+    <h1 class="text-center mb-4">Bienvenido a BookTracker</h1>
+
+    <!-- Texto del Home -->
+    <div class="mx-auto" style="max-width: 900px; font-size: 18px; line-height: 1.6; text-align: center;">
+
+        <p>
+            BookTracker es una plataforma diseñada para acompañar y motivar a los lectores en su camino. 
+            Permite registrar los libros que han leído, llevar un seguimiento visual de su progreso y descubrir 
+            estadísticas personalizadas que muestran cómo ha evolucionado su hábito de lectura a lo largo del tiempo.
+        </p>
+
+        <p class="mt-4">
+            Inspirada en la idea de un <strong>“Reading Wrapped”</strong>, BookTracker transforma la experiencia lectora
+            en algo más dinámico y significativo. Los usuarios pueden consultar datos como sus géneros favoritos, autores
+            más leídos, número de libros por mes y más, todo dentro de una interfaz clara, moderna y pensada para brindar
+            una experiencia agradable.
+        </p>
+
+        <p class="mt-4">
+            El objetivo de BookTracker es brindar una herramienta sencilla y funcional para los lectores que desean
+            monitorear su hábito de lectura, visualizar sus avances diarios y mantener todos sus libros registrados
+            en un solo lugar.
+        </p>
+
+        <p class="mt-4">
+            Construido con <strong>Django</strong>, <strong>Python</strong> y <strong>SQLite</strong>, BookTracker ofrece 
+            una interfaz amigable y accesible para todo tipo de usuarios.
+        </p>
+
+    </div>
+
+    <!-- Botones -->
+    <div class="text-center mt-4">
+        <a href="{% url 'books' %}" class="btn btn-primary px-4 py-2">Ver mi Biblioteca</a>
+        <a href="{% url 'create_book' %}" class="btn btn-outline-primary px-4 py-2 ms-2">Agregar Libro</a>
+    </div>
+
 </div>
+
 {% endblock %}
