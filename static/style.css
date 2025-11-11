@@ -11,27 +11,3 @@
     background-color: #DCBD9E;
     color: #FFFFFF;
 }
-table.table-bordered{
-    border: 1px solid #DCBD9E;
-}
-table.table-bordered > thead > tr > th {
-    border: 1px solid #DCBD9E;
-}
-table.table-bordered > tbody > tr > td {
-    border: 1px solid #DCBD9E;
-}
-.buttonMargin{
-    margin:5px;
-}
-.deleteButtonColor{
-    background-color: #e02626;
-    color: black;
-}
-.completeButtonColor{
-    background-color: #6ee628f0;
-    color: black;
-}
-.updateButtonColor{
-    background-color: #f3e034f0;
-    color: black;
-}

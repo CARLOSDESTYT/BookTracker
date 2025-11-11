@@ -12,13 +12,6 @@ class BookForm(ModelForm):
         widgets = {
             'goal': forms.DateInput(attrs={'type': 'date'}),
         }
-    def __init__(self, *args, **kwargs):
-        super(BookForm, self).__init__(*args, **kwargs)
-        self.fields['title'].widget.attrs['class'] = 'form-control'
-        self.fields['autor'].widget.attrs['class'] = 'form-control'
-        self.fields['goal'].widget.attrs['class'] = 'form-control'  
-        self.fields['pages_read'].widget.attrs['class'] = 'form-control'
-        self.fields['pages_total'].widget.attrs['class'] = 'form-control'   
         
 class SignUpForm(UserCreationForm):
     class Meta:

@@ -1,17 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
 
+<h1>Create Book</h1>
 
-<div class = "d-flex flex-column justify-content-center flex-wrap rounded">
-    <div class="d-flex p-2 justify-content-center">
-        <h1>Create Book</h1>
-    </div>
-    <div class = "p-2 rounded formOutline" style=" background-color:#FFFFFF">
-        <form action="/books/create/" method="POST">
-            {% csrf_token %}
-            {{error}}
-            {{form.as_p}}
-            <button type="submit" class="formButtonColor btn btn-secondary btn-block ">Submit</button>
-        </form>
-    </div>
+<form action="/books/create/" method="POST">
+    {% csrf_token %}
+    {{error}}
+    {{form.as_p}}
+    <button>
+        Save
+    </button>
+</form>
 {% endblock %}

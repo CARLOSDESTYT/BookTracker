@@ -1,45 +1,34 @@
 {% extends "base.html" %}
 {% block content %}
 
+<h1>{{book.title}}</h1>
+{{error}}
+<form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    {% for dia, paginas in book.pages_for_day %}
+        <tr>
+            <td>{{ dia }}</td>
+            <td>{{ paginas }}<br></td>
+        </tr>
+    {% endfor %}
+    <button>
+        Update
+    </button>
+</form>
 
-<div class = "d-flex flex-column justify-content-center flex-wrap rounded">
-    <div class="d-flex p-2 justify-content-center">
-        <h1>{{book.title}}</h1>
-        {{error}}
-    </div>
-        <form method="POST">
-            {% csrf_token %}
-            {{form.as_p}}
+<form action="{% url 'complete_book' book.id %}" method="POST">
+    {% csrf_token %}
+    <button>
+        Complete
+    </button>
+</form>
 
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th scope="col">Dias de lectura</th>
-                    <th scope="col">Paginas a leer por dia</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for dia, paginas in book.pages_for_day %}
+<form action="{% url 'delete_book' book.id %}" method="POST">
+    {% csrf_token %}
+    <button>
+        Delete
+    </button>
+</form>
 
-                    <tr>
-                        <td>{{ dia }}</td>
-                        <td>{{ paginas }}<br></td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-
-            <button type="submit" class="updateButtonColor btn btn-secondary btn-block buttonMargin">Update Book</button>
-        </form>
-
-        <form action="{% url 'complete_book' book.id %}" method="POST">
-            {% csrf_token %}
-            <button type="submit" class="completeButtonColor btn btn-secondary btn-block buttonMargin">Mark as Complete</button>
-        </form>
-
-        <form action="{% url 'delete_book' book.id %}" method="POST">
-            {% csrf_token %}
-            <button type="submit" class="deleteButtonColor btn btn-secondary btn-block buttonMargin">Delete Book</button>
-        </form>
-</div>
 {% endblock %}
