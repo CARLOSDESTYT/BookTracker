@@ -1,8 +1,105 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
 
-<div class="d-flex p-2 justify-content-center flex-wrap">
-    <h1>Home</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam nam non minima cumque accusantium harum repellat quas, hic, quis, tenetur molestiae ipsa deleniti amet maiores? Iste a deserunt architecto quos voluptas officiis porro accusantium quae ut! Fuga, veniam quod. Magnam distinctio harum quidem inventore facilis neque dolorum quam voluptatibus ipsum. Blanditiis autem perferendis, neque ullam dolores facere eos animi natus? Illo cum iusto necessitatibus deleniti, voluptates error odio nulla asperiores quasi eligendi dicta quas explicabo quam amet natus fugiat. Accusantium ipsam aliquam illum velit voluptates quidem dolorum neque perspiciatis, nihil magnam minima ex sequi, quia facere eius delectus sapiente modi!</p>
-</div>
+<style>
+  .hero {
+    min-height: 86vh;
+    padding-top: 90px;           
+    color: #fff;
+    background: url("{% static 'img/hero_home.png' %}") center/cover no-repeat fixed;
+    position: relative;
+  }
+
+  .hero::before{
+    content:""; position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.08));
+  }
+  .hero-inner{
+    position: relative;
+    height: calc(86vh - 90px);
+    display: grid; place-items: end center;
+    padding-bottom: 40px;
+  }
+  .learn-btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding: 12px 22px; border-radius:12px;
+    color:#fff; font-weight:600; text-decoration:none;
+    background: rgba(255,255,255,.16);
+    border:1px solid rgba(255,255,255,.25);
+    transition: transform .15s ease, background .2s ease;
+    backdrop-filter: blur(2px);
+  }
+  .learn-btn:hover{ transform: translateY(-2px); background: rgba(255,255,255,.22); }
+  .chev{ font-size:18px; }
+
+  #about{ background: #B18BE0; color:#fff; }
+  .about-wrap{
+    max-width: 1200px; margin: 0 auto; padding: 64px 24px;
+    display: grid; grid-template-columns: 1.2fr .8fr; gap: 32px; align-items: center;
+  }
+  .about-title{
+    font-size: 56px; font-weight: 800; margin: 0 0 16px; color: #FFE2B3;
+    letter-spacing: 1px;
+  }
+  .about-text{
+    text-align: justify; font-size: 22px; line-height: 1.75;
+  }
+  .about-logo{
+    display:flex; align-items:center; justify-content:center;
+  }
+  .about-logo img{
+    width: 100%; max-width: 420px; height: auto; border-radius: 18px;
+    box-shadow: 0 22px 60px rgba(0,0,0,.25);
+  }
+
+  @media (max-width: 992px){
+    .about-wrap{ grid-template-columns: 1fr; }
+    .about-logo{ order:-1; margin-bottom: 12px; }
+    .about-title{ font-size: 40px; }
+    .about-text{ font-size: 18px; }
+  }
+</style>
+
+<header class="hero">
+  <div class="hero-inner container">
+    <a href="#about" class="learn-btn">Learn more <span class="chev">▾</span></a>
+  </div>
+</header>
+
+<section id="about">
+  <div class="about-wrap">
+    <div>
+      <h2 class="about-title">ABOUT</h2>
+      <div class="about-text">
+        <p>
+          BookTracker is a platform designed to accompany and motivate readers along their journey.
+          It allows users to record the books they’ve read, visually track their progress, and discover
+          personalized statistics that show how their reading habits have evolved over time.
+        </p>
+        <p>
+          Inspired by the idea of a “Reading Wrapped,” BookTracker transforms the reading experience
+          into something more dynamic and meaningful. Users can explore data such as their favorite
+          genres, most-read authors, number of books per month, and more — all within a clear, modern
+          interface designed to provide a pleasant experience.
+        </p>
+        <p>
+          The goal of BookTracker is to offer a simple and functional tool for readers who want to
+          monitor their reading habits, visualize their daily progress, and keep all their books
+          organized in one place.
+        </p>
+        <p>
+          Built with Django, Python, and SQLite, BookTracker provides a friendly and accessible interface
+          for all types of users.
+        </p>
+      </div>
+    </div>
+
+    <div class="about-logo">
+      <img src="{% static 'img/about_logo.png' %}" alt="BookTracker logo">
+    </div>
+  </div>
+</section>
+
 {% endblock %}
+
