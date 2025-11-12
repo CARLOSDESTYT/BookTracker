@@ -1,17 +1,3 @@
-# Acerca de BookTracker
-BookTracker es una plataforma diseñada para acompañar y motivar a los lectores en su camino. Permite registrar los libros que han leído, llevar un seguimiento visual de su progreso y descubrir estadísticas personalizadas que muestran cómo ha evolucionado su hábito de lectura a lo largo del tiempo.
-
-Inspirada en la idea de un “Reading Wrapped”, BookTracker transforma la experiencia lectora en algo más dinámico y significativo. Los usuarios pueden consultar datos como sus géneros favoritos, autores más leídos, número de libros por mes, y más, todo dentro de una interfaz clara, moderna y pensada para brindar una experiencia agradable.
-
-El objetivo de BookTracker es brindar una herramienta sencilla y funcional para los lectores que desean monitorear su hábito de lectura, visualizar sus avances diarios y mantener todos sus libros registrados en un solo lugar.
-
-Construido con Django, Python y manejo de base de datos con SQLite, BookTracker ofrece una interfaz amigable.
-
-
-
-
-
-
 # BookTracker
 libros = []
 
