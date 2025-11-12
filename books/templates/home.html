@@ -1,105 +1,46 @@
 {% extends "base.html" %}
-{% load static %}
 {% block content %}
 
-<style>
-  .hero {
-    min-height: 86vh;
-    padding-top: 90px;           
-    color: #fff;
-    background: url("{% static 'img/hero_home.png' %}") center/cover no-repeat fixed;
-    position: relative;
-  }
+<div class="container py-4">
 
-  .hero::before{
-    content:""; position:absolute; inset:0;
-    background: linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.08));
-  }
-  .hero-inner{
-    position: relative;
-    height: calc(86vh - 90px);
-    display: grid; place-items: end center;
-    padding-bottom: 40px;
-  }
-  .learn-btn{
-    display:inline-flex; align-items:center; gap:10px;
-    padding: 12px 22px; border-radius:12px;
-    color:#fff; font-weight:600; text-decoration:none;
-    background: rgba(255,255,255,.16);
-    border:1px solid rgba(255,255,255,.25);
-    transition: transform .15s ease, background .2s ease;
-    backdrop-filter: blur(2px);
-  }
-  .learn-btn:hover{ transform: translateY(-2px); background: rgba(255,255,255,.22); }
-  .chev{ font-size:18px; }
+    <!-- Título principal -->
+    <h1 class="text-center mb-4">Bienvenido a BookTracker</h1>
 
-  #about{ background: #B18BE0; color:#fff; }
-  .about-wrap{
-    max-width: 1200px; margin: 0 auto; padding: 64px 24px;
-    display: grid; grid-template-columns: 1.2fr .8fr; gap: 32px; align-items: center;
-  }
-  .about-title{
-    font-size: 56px; font-weight: 800; margin: 0 0 16px; color: #FFE2B3;
-    letter-spacing: 1px;
-  }
-  .about-text{
-    text-align: justify; font-size: 22px; line-height: 1.75;
-  }
-  .about-logo{
-    display:flex; align-items:center; justify-content:center;
-  }
-  .about-logo img{
-    width: 100%; max-width: 420px; height: auto; border-radius: 18px;
-    box-shadow: 0 22px 60px rgba(0,0,0,.25);
-  }
+    <!-- Texto del Home -->
+    <div class="mx-auto" style="max-width: 900px; font-size: 18px; line-height: 1.6; text-align: center;">
 
-  @media (max-width: 992px){
-    .about-wrap{ grid-template-columns: 1fr; }
-    .about-logo{ order:-1; margin-bottom: 12px; }
-    .about-title{ font-size: 40px; }
-    .about-text{ font-size: 18px; }
-  }
-</style>
-
-<header class="hero">
-  <div class="hero-inner container">
-    <a href="#about" class="learn-btn">Learn more <span class="chev">▾</span></a>
-  </div>
-</header>
-
-<section id="about">
-  <div class="about-wrap">
-    <div>
-      <h2 class="about-title">ABOUT</h2>
-      <div class="about-text">
         <p>
-          BookTracker is a platform designed to accompany and motivate readers along their journey.
-          It allows users to record the books they’ve read, visually track their progress, and discover
-          personalized statistics that show how their reading habits have evolved over time.
+            BookTracker es una plataforma diseñada para acompañar y motivar a los lectores en su camino. 
+            Permite registrar los libros que han leído, llevar un seguimiento visual de su progreso y descubrir 
+            estadísticas personalizadas que muestran cómo ha evolucionado su hábito de lectura a lo largo del tiempo.
         </p>
-        <p>
-          Inspired by the idea of a “Reading Wrapped,” BookTracker transforms the reading experience
-          into something more dynamic and meaningful. Users can explore data such as their favorite
-          genres, most-read authors, number of books per month, and more — all within a clear, modern
-          interface designed to provide a pleasant experience.
+
+        <p class="mt-4">
+            Inspirada en la idea de un <strong>“Reading Wrapped”</strong>, BookTracker transforma la experiencia lectora
+            en algo más dinámico y significativo. Los usuarios pueden consultar datos como sus géneros favoritos, autores
+            más leídos, número de libros por mes y más, todo dentro de una interfaz clara, moderna y pensada para brindar
+            una experiencia agradable.
         </p>
-        <p>
-          The goal of BookTracker is to offer a simple and functional tool for readers who want to
-          monitor their reading habits, visualize their daily progress, and keep all their books
-          organized in one place.
+
+        <p class="mt-4">
+            El objetivo de BookTracker es brindar una herramienta sencilla y funcional para los lectores que desean
+            monitorear su hábito de lectura, visualizar sus avances diarios y mantener todos sus libros registrados
+            en un solo lugar.
         </p>
-        <p>
-          Built with Django, Python, and SQLite, BookTracker provides a friendly and accessible interface
-          for all types of users.
+
+        <p class="mt-4">
+            Construido con <strong>Django</strong>, <strong>Python</strong> y <strong>SQLite</strong>, BookTracker ofrece 
+            una interfaz amigable y accesible para todo tipo de usuarios.
         </p>
-      </div>
+
     </div>
 
-    <div class="about-logo">
-      <img src="{% static 'img/about_logo.png' %}" alt="BookTracker logo">
+    <!-- Botones -->
+    <div class="text-center mt-4">
+        <a href="{% url 'books' %}" class="btn btn-primary px-4 py-2">Ver mi Biblioteca</a>
+        <a href="{% url 'create_book' %}" class="btn btn-outline-primary px-4 py-2 ms-2">Agregar Libro</a>
     </div>
-  </div>
-</section>
+
+</div>
 
 {% endblock %}
-
